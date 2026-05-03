@@ -39,23 +39,24 @@
     .error-message { font-size: 18px; color: #8b949e; margin-top: 8px; }
     
     /* Dynamic URL */
-    .url-display { background: #0d1117; border: 1px solid #30363d; border-radius: 10px; padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #f43f5e; display: inline-flex; align-items: center; gap: 8px; }
-    .url-display i { color: #f43f5e; }
+    .url-display { background: #0d1117; border: 1px solid #30363d; border-radius: 10px; padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #f43f5e; display: inline-flex; align-items: center; gap: 8px; word-break: break-all; max-width: 100%; }
+    .url-display i { color: #f43f5e; flex-shrink: 0; }
+    .url-display span { overflow-x: auto; white-space: nowrap; }
     
     /* Fake Info */
     .fake-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
-    .fake-card { background: rgba(22,27,34,0.8); border: 1px solid #30363d; border-radius: 10px; padding: 12px; text-align: center; }
+    .fake-card { background: rgba(22,27,34,0.8); backdrop-filter: blur(4px); border: 1px solid #30363d; border-radius: 10px; padding: 12px; text-align: center; transition: all 0.2s; }
     .fake-card .label { font-size: 9px; color: #8b949e; letter-spacing: 1px; }
     .fake-card .value { font-size: 13px; color: #58a6ff; font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
     
     /* Timer */
-    .timer-box { background: rgba(22,27,34,0.8); border: 1px solid #30363d; border-radius: 14px; padding: 16px 20px; }
-    .timer-text { font-size: 13px; color: #8b949e; }
-    .timer-count { font-size: 32px; font-weight: 900; color: #58a6ff; }
+    .timer-box { background: rgba(22,27,34,0.8); backdrop-filter: blur(4px); border: 1px solid #30363d; border-radius: 14px; padding: 16px 20px; width: 100%; }
+    .timer-text { font-size: 13px; color: #8b949e; margin-bottom: 6px; }
+    .timer-count { font-size: 32px; font-weight: 900; color: #58a6ff; font-family: monospace; }
     
     /* Buttons */
     .buttons { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-    .btn { padding: 14px 24px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; }
+    .btn { padding: 14px 24px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; border: none; cursor: pointer; font-family: inherit; width: 100%; }
     .btn-primary { background: #58a6ff; color: #0d1117; }
     .btn-primary:hover { background: #79b8ff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(88,166,255,0.3); }
     .btn-secondary { background: transparent; border: 2px solid #30363d; color: #c9d1d9; }
@@ -64,6 +65,10 @@
     .btn-danger:hover { background: #e11d48; }
     
     .footer { color: #8b949e; font-size: 10px; margin-top: 10px; }
+    
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -77,9 +82,9 @@
       <div class="glitch">404</div>
     </div>
     
-    <p class="error-message">الرابط غير موجود أو تم نقله</p>
+    <p class="error-message">⚠️ الرابط غير موجود أو تم نقله</p>
     
-    <!-- Dynamic URL -->
+    <!-- Dynamic URL (decoded) -->
     <div class="url-display" id="urlDisplay">
       <i class="fas fa-link"></i>
       <span id="badUrl">/unknown-page</span>
@@ -92,8 +97,8 @@
         <div class="value" id="fakeIP">192.168.1.1</div>
       </div>
       <div class="fake-card">
-        <div class="label">📍 Location</div>
-        <div class="value" id="fakeLocation">Unknown</div>
+        <div class="label">📍 Secure Node</div>
+        <div class="value" id="fakeLocation">Encrypted Tunnel 🔒</div>
       </div>
       <div class="fake-card">
         <div class="label">🛡️ System Scan</div>
@@ -107,15 +112,16 @@
     
     <!-- Smart Buttons -->
     <div class="buttons" id="smartButtons">
-      <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
-      <a href="services.html" class="btn btn-secondary"><i class="fas fa-cogs"></i> استكشف خدماتنا</a>
-      <a href="contact.html" class="btn btn-secondary"><i class="fas fa-envelope"></i> تواصل معنا</a>
+      <a href="/" class="btn btn-primary"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+      <a href="/services.html" class="btn btn-secondary"><i class="fas fa-cogs"></i> استكشف خدماتنا</a>
+      <a href="/contact.html" class="btn btn-secondary"><i class="fas fa-envelope"></i> تواصل معنا</a>
     </div>
     
-    <!-- Timer -->
+    <!-- Timer + Cancel -->
     <div class="timer-box">
-      <div class="timer-text">سيتم تحويلك تلقائياً للصفحة الرئيسية خلال</div>
+      <div class="timer-text">سيتم تحويلك للصفحة الرئيسية خلال</div>
       <div class="timer-count" id="timerCount">5</div>
+      <button onclick="cancelRedirect()" class="btn btn-danger" style="margin-top: 12px; padding: 8px; font-size: 13px;"><i class="fas fa-ban"></i> إلغاء التحويل</button>
     </div>
     
     <div class="footer">
@@ -125,55 +131,78 @@
   </div>
   
   <script>
-    // Get bad URL
-    const badUrl = window.location.pathname || '/unknown-page';
+    let interval = null;
+    
+    // Get bad URL (decoded)
+    const badUrl = decodeURIComponent(window.location.pathname) || '/unknown-page';
     document.getElementById('badUrl').textContent = badUrl;
     
     // Fake IP
     const fakeIP = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
     document.getElementById('fakeIP').textContent = fakeIP;
     
-    // Fake Location
-    const locations = ['Damascus, Syria 🇸🇾', 'Aleppo, Syria 🇸🇾', 'Homs, Syria 🇸🇾', 'Latakia, Syria 🇸🇾', 'Unknown Proxy 🌐'];
+    // Advanced Cyber Locations
+    const locations = ['Secured Node 🔒', 'Anonymous Proxy 🌐', 'Encrypted Tunnel 🛡️', 'Dark Relay ⚡'];
     document.getElementById('fakeLocation').textContent = locations[Math.floor(Math.random() * locations.length)];
     
-    // Smart Buttons
+    // Smart Buttons (suggest relevant page)
     const smartDiv = document.getElementById('smartButtons');
     if (badUrl.toLowerCase().includes('service')) {
-      smartDiv.innerHTML = `<a href="services.html" class="btn btn-primary"><i class="fas fa-cogs"></i> استكشف خدماتنا</a>`;
+      smartDiv.innerHTML = `<a href="/services.html" class="btn btn-primary"><i class="fas fa-cogs"></i> استكشف خدماتنا</a>`;
     } else if (badUrl.toLowerCase().includes('contact')) {
-      smartDiv.innerHTML = `<a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> تواصل معنا</a>`;
+      smartDiv.innerHTML = `<a href="/contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> تواصل معنا</a>`;
     } else if (badUrl.toLowerCase().includes('about')) {
-      smartDiv.innerHTML = `<a href="about.html" class="btn btn-primary"><i class="fas fa-building"></i> عن الشركة</a>`;
+      smartDiv.innerHTML = `<a href="/about.html" class="btn btn-primary"><i class="fas fa-building"></i> عن الشركة</a>`;
     }
     
-    // Countdown
-    let count = 5;
-    const timerEl = document.getElementById('timerCount');
-    const interval = setInterval(() => {
-      count--;
-      timerEl.textContent = count;
-      if (count <= 0) {
-        clearInterval(interval);
-        window.location.href = 'index.html';
-      }
-    }, 1000);
+    // Timer function
+    function startTimer() {
+      let count = 5;
+      const timerEl = document.getElementById('timerCount');
+      
+      if (interval) clearInterval(interval);
+      
+      interval = setInterval(() => {
+        count--;
+        timerEl.textContent = count;
+        
+        if (count <= 0) {
+          clearInterval(interval);
+          window.location.href = '/';
+        }
+      }, 1000);
+    }
     
-    // Play glitch sound
+    function cancelRedirect() {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+        document.getElementById('timerCount').textContent = '✓';
+      }
+    }
+    
+    startTimer();
+    
+    // Optional: subtle glitch sound (silent fail if blocked)
     try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      oscillator.type = 'square';
-      oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
-      oscillator.frequency.setValueAtTime(80, audioCtx.currentTime + 0.1);
-      gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-      oscillator.start(audioCtx.currentTime);
-      oscillator.stop(audioCtx.currentTime + 0.3);
-    } catch(e) {}
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        const audioCtx = new AudioContext();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
+        oscillator.frequency.setValueAtTime(80, audioCtx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.3);
+        // resume on user interaction if needed
+        document.body.addEventListener('click', () => { if(audioCtx.state === 'suspended') audioCtx.resume(); }, { once: true });
+      }
+    } catch(e) { /* silent */ }
   </script>
 </body>
 </html>
