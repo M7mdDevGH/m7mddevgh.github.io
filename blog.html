@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="تعلم الأمن السيبراني وحماية المواقع من XSS و SQL Injection مع M7 CyWeb Sy">
+  <title>المدونة | M7 CyWeb Sy</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Tajawal', sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+    
+    .container { position: relative; z-index: 1; width: 100%; max-width: 700px; margin: 0 auto; padding: 20px 16px 30px; display: flex; flex-direction: column; gap: 24px; }
+    
+    .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(22,27,34,0.9); border: 1px solid #30363d; border-radius: 14px; padding: 10px 16px; backdrop-filter: blur(10px); }
+    .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-brand i { color: #58a6ff; font-size: 24px; }
+    .nav-brand span { font-size: 17px; font-weight: 800; color: white; }
+    .nav-links { display: flex; gap: 12px; }
+    .nav-link { color: #8b949e; text-decoration: none; font-size: 11px; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: #58a6ff; }
+    .nav-link.active { color: #58a6ff; }
+    
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 24px 20px; }
+    
+    .hero { text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); color: #58a6ff; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .hero h1 { font-size: 28px; font-weight: 900; color: white; }
+    .hero .subtitle { font-size: 14px; color: #8b949e; margin-top: 6px; }
+    
+    .section-title { font-size: 20px; font-weight: 800; color: white; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .section-title i { color: #58a6ff; }
+    
+    .search-box { display: flex; gap: 8px; }
+    .search-box input { flex: 1; padding: 12px; background: #0d1117; border: 2px solid #30363d; border-radius: 10px; color: white; font-family: 'Tajawal', sans-serif; font-size: 14px; }
+    .search-box input:focus { outline: none; border-color: #58a6ff; }
+    .search-box button { padding: 12px 16px; background: #58a6ff; color: white; border: none; border-radius: 10px; cursor: pointer; }
+    
+    .categories { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .cat-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid #30363d; background: #0d1117; color: #8b949e; font-family: 'Tajawal', sans-serif; font-weight: 600; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .cat-btn.active { background: #58a6ff; border-color: #58a6ff; color: white; }
+    .cat-btn:hover:not(.active) { border-color: #58a6ff; color: #58a6ff; }
+    
+    .posts-grid { display: flex; flex-direction: column; gap: 16px; }
+    .post-card { background: #0d1117; border: 1px solid #30363d; border-radius: 14px; padding: 20px; cursor: pointer; transition: all 0.3s; }
+    .post-card:hover { border-color: #58a6ff; transform: translateY(-3px); box-shadow: 0 15px 25px -10px rgba(88,166,255,0.2); }
+    .post-card.featured { border-color: rgba(88,166,255,0.4); background: rgba(88,166,255,0.03); }
+    .post-meta { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+    .post-date { font-size: 10px; color: #6b7280; }
+    .post-category { font-size: 10px; padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+    .cat-cyber { background: rgba(244,63,94,0.15); color: #f43f5e; }
+    .cat-web { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .cat-tip { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .post-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .post-desc { font-size: 13px; color: #8b949e; margin-bottom: 12px; }
+    .post-link { color: #58a6ff; font-weight: 600; font-size: 13px; text-decoration: none; }
+    .post-card.hidden { display: none; }
+    .no-results { text-align: center; padding: 30px; color: #8b949e; display: none; }
+    
+    .article-view { display: none; }
+    .article-view.show { display: block; }
+    .article-content h2 { font-size: 20px; color: white; margin: 20px 0 10px; }
+    .article-content h3 { font-size: 16px; color: #58a6ff; margin: 16px 0 8px; }
+    .article-content p { font-size: 14px; color: #c9d1d9; margin-bottom: 12px; line-height: 1.8; }
+    .article-content ul { padding-right: 20px; color: #c9d1d9; font-size: 14px; margin-bottom: 12px; }
+    .article-content ul li { margin-bottom: 6px; }
+    .article-content code { background: #0d1117; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f59e0b; }
+    .article-content pre { background: #0a0a0a; padding: 14px; border-radius: 8px; overflow-x: auto; margin: 12px 0; border: 1px solid #30363d; }
+    .article-content pre code { color: #22c55e; padding: 0; font-size: 11px; }
+    .btn-back { background: transparent; border: 1px solid #30363d; color: #c9d1d9; padding: 10px 20px; border-radius: 10px; font-family: 'Tajawal', sans-serif; font-weight: 600; cursor: pointer; }
+    .btn-back:hover { border-color: #58a6ff; color: #58a6ff; }
+    
+    .cta-section { background: linear-gradient(135deg, #161b22, #1a1f2e); border: 1px solid #30363d; border-radius: 16px; padding: 30px 20px; text-align: center; }
+    .cta-section h2 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .cta-section p { font-size: 13px; color: #8b949e; margin-bottom: 20px; }
+    .btn-cta { background: #58a6ff; color: #0d1117; padding: 12px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+    .btn-cta:hover { background: #79b8ff; transform: translateY(-2px); }
+    
+    .footer { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; text-align: center; }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .footer-brand i { color: #58a6ff; font-size: 20px; }
+    .footer-brand span { font-size: 16px; font-weight: 800; color: white; }
+    .footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: #8b949e; text-decoration: none; font-size: 11px; transition: color 0.2s; }
+    .footer-links a:hover { color: #58a6ff; }
+    .footer p { font-size: 10px; color: #8b949e; }
+    
+    @media (min-width: 600px) {
+      .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .post-card.featured { grid-column: span 2; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="about.html" class="nav-link">عن الشركة</a>
+        <a href="blog.html" class="nav-link active">المدونة</a>
+        <a href="contact.html" class="nav-link">تواصل</a>
+      </div>
+    </nav>
+    
+    <div class="card hero">
+      <div class="hero-badge">M7 CyWeb Sy</div>
+      <h1>المدونة</h1>
+      <p class="subtitle">مقالات ونصائح في الأمن السيبراني وتطوير الويب</p>
+    </div>
+    
+    <div id="blogList">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ابحث عن مقال...">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+      </div>
+      
+      <div class="categories">
+        <button class="cat-btn active" data-category="all">الكل</button>
+        <button class="cat-btn" data-category="cyber"><i class="fas fa-shield-alt"></i> Cyber</button>
+        <button class="cat-btn" data-category="web"><i class="fas fa-code"></i> Web</button>
+        <button class="cat-btn" data-category="tip"><i class="fas fa-lightbulb"></i> Tips</button>
+      </div>
+      
+      <div class="posts-grid" id="postsGrid"></div>
+      <div class="no-results" id="noResults">لا توجد مقالات مطابقة</div>
+    </div>
+    
+    <div class="article-view card" id="articleView">
+      <button class="btn-back" id="btnBack"><i class="fas fa-arrow-right"></i> رجوع للمدونة</button>
+      <div class="article-content" id="articleContent"></div>
+    </div>
+    
+    <div class="cta-section">
+      <h2>هل تريد حماية موقعك؟</h2>
+      <p>تواصل معنا اليوم لاختبار أمان موقعك</p>
+<a href="contact.html" class="btn-cta">
+  احصل على فحص أمني مجاني
+</a>
+    </div>
+    
+    <div class="footer">
+      <div class="footer-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></div>
+      <div class="footer-links">
+        <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy</a>
+      </div>
+      <p>© 2026 M7 CyWeb Sy. جميع الحقوق محفوظة. صُمم بكل فخر في سوريا 🇸🇾</p>
+    </div>
+    
+  </div>
+  
+  <script>
+    // Posts Data
+    const posts = [
+      { id: 'xss', title: 'ما هي ثغرة XSS وكيف تحمي موقعك منها؟', desc: 'شرح مبسط  لثغرة Cross-Site Scripting مع أمثلة عملية وطرق الحماية  .جرب بنفسك ثغرة XSS واكتشف هل موقعك قابل للاختراق أم لا', date: '1 مايو 2026', category: 'cyber', featured: true },
+      { id: 'sqli', title: 'SQL Injection: أخطر ثغرة في تطبيقات الويب', desc: 'كيف يستغل المخترقون قواعد البيانات؟ وكيف تحمي تطبيقك؟', date: '28 أبريل 2026', category: 'cyber', featured: false },
+      { id: 'htmlcss', title: 'كيف تبني موقعاً احترافياً بـ HTML و CSS فقط؟', desc: 'دليل عملي لبناء موقع كامل بدون أي مكتبات خارجية.', date: '20 أبريل 2026', category: 'web', featured: false },
+      { id: 'passwords', title: '5 نصائح لإنشاء كلمات مرور لا يمكن اختراقها', desc: 'تعلم كيف تحمي حساباتك بكلمات مرور قوية وسهلة التذكر.', date: '15 أبريل 2026', category: 'tip', featured: false },
+      { id: 'pentest', title: 'ما هو اختبار الاختراق؟ ولماذا تحتاجه شركتك؟', desc: 'شرح كامل لأنواع Pentesting وفوائده للشركات الناشئة.', date: '10 أبريل 2026', category: 'cyber', featured: false },
+      { id: 'responsive', title: 'التصميم المتجاوب: لماذا هو ضروري لموقعك؟', desc: 'كيف تجعل موقعك يشتغل على جميع الأجهزة بشكل مثالي.', date: '5 أبريل 2026', category: 'web', featured: false }
+    ];
+    
+    const articles = {
+      xss: {
+        title: 'ما هي ثغرة XSS وكيف تحمي موقعك منها؟',
+        content: `
+          <p>ثغرة <strong>XSS (Cross-Site Scripting)</strong> هي واحدة من أشهر الثغرات الأمنية في تطبيقات الويب.</p>
+          <h2>أنواع XSS</h2>
+          <h3>1. Stored XSS</h3>
+          <p>يتم تخزين الكود الخبيث في قاعدة البيانات.</p>
+          <h3>2. Reflected XSS</h3>
+          <p>يتم إرسال الكود عبر رابط URL.</p>
+          <h2>مثال عملي</h2>
+          <pre><code>&lt;script&gt;alert('XSS!')&lt;/script&gt;</code></pre>
+          <h2>كيف تحمي موقعك؟</h2>
+          <ul>
+            <li>تشفير المدخلات (Input Encoding)</li>
+            <li>استخدام Content Security Policy (CSP)</li>
+            <li>تطهير البيانات (Sanitization)</li>
+          </ul>
+          <br><br>
+<a href="security.html" style="display:inline-block;background:#58a6ff;color:#0d1117;padding:10px 20px;border-radius:8px;font-weight:700;text-decoration:none;">
+  جرب فحص XSS بنفسك
+</a>
+        `
+        
+      },
+      sqli: {
+        title: 'SQL Injection: أخطر ثغرة في تطبيقات الويب',
+        content: `
+          <p>ثغرة <strong>SQL Injection</strong> تسمح للمخترق بالتلاعب باستعلامات قاعدة البيانات.</p>
+          <h2>مثال</h2>
+          <pre><code>SELECT * FROM users WHERE username = 'admin' OR '1'='1'</code></pre>
+          <h2>الحماية</h2>
+          <ul>
+            <li>استخدام Prepared Statements</li>
+            <li>تطهير المدخلات</li>
+            <li>تطبيق مبدأ Least Privilege</li>
+          </ul>
+        `
+      },
+      htmlcss: {
+        title: 'كيف تبني موقعاً احترافياً بـ HTML و CSS فقط؟',
+        content: `
+          <p>يمكنك بناء موقع احترافي كامل باستخدام HTML و CSS فقط.</p>
+          <h2>الخطوات الأساسية</h2>
+          <h3>1. هيكل HTML</h3>
+          <pre><code>&lt;header&gt;...&lt;/header&gt;&lt;main&gt;...&lt;/main&gt;&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+          <h3>2. تنسيق CSS</h3>
+          <pre><code>:root { --primary: #58a6ff; --bg: #0d1117; }</code></pre>
+        `
+      },
+      passwords: {
+        title: '5 نصائح لإنشاء كلمات مرور لا يمكن اختراقها',
+        content: `
+          <p>كلمة المرور القوية هي خط الدفاع الأول.</p>
+          <h3>1. الطول مهم</h3><p>استخدم 12 حرفاً على الأقل.</p>
+          <h3>2. تنوع الأحرف</h3><p>أحرف كبيرة وصغيرة وأرقام ورموز.</p>
+          <h3>3. لا تستخدم كلمات شائعة</h3><p>تجنب 123456, password.</p>
+          <h3>4. استخدم مدير كلمات مرور</h3><p>مثل Bitwarden.</p>
+          <h3>5. فعّل 2FA</h3><p>طبقة حماية إضافية.</p>
+        `
+      },
+      pentest: {
+        title: 'ما هو اختبار الاختراق؟ ولماذا تحتاجه شركتك؟',
+        content: `
+          <p>اختبار الاختراق هو محاكاة هجوم حقيقي لاكتشاف الثغرات.</p>
+          <h2>أنواع Pentest</h2>
+          <ul>
+            <li><strong>Black Box:</strong> لا معلومات مسبقة</li>
+            <li><strong>White Box:</strong> معلومات كاملة</li>
+            <li><strong>Gray Box:</strong> معلومات جزئية</li>
+          </ul>
+        `
+      },
+      responsive: {
+        title: 'التصميم المتجاوب: لماذا هو ضروري لموقعك؟',
+        content: `
+          <p>التصميم المتجاوب يعني أن موقعك يتكيف مع حجم الشاشة.</p>
+          <h2>كيف تطبقه؟</h2>
+          <pre><code>@media (max-width: 600px) { ... }</code></pre>
+        `
+      }
+    };
+    
+    let currentCategory = 'all';
+    
+    function renderPosts() {
+      const grid = document.getElementById('postsGrid');
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      const filtered = posts.filter(post => {
+        const matchCategory = currentCategory === 'all' || post.category === currentCategory;
+        const matchSearch = !searchTerm || post.title.toLowerCase().includes(searchTerm) || post.desc.toLowerCase().includes(searchTerm);
+        return matchCategory && matchSearch;
+      });
+      
+      grid.innerHTML = filtered.map(post => `
+        <div class="post-card ${post.featured ? 'featured' : ''}" data-id="${post.id}">
+          <div class="post-meta">
+            <span class="post-date">${post.date}</span>
+            <span class="post-category cat-${post.category === 'cyber' ? 'cyber' : post.category === 'web' ? 'web' : 'tip'}">${post.category === 'cyber' ? 'Cyber Security' : post.category === 'web' ? 'Web Development' : 'Tips'}</span>
+          </div>
+          <div class="post-title">${post.title}</div>
+          <div class="post-desc">${post.desc}</div>
+          <span class="post-link">اقرأ المزيد →</span>
+        </div>
+      `).join('');
+      
+      document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+      
+      // Add event listeners
+      grid.querySelectorAll('.post-card').forEach(card => {
+        card.addEventListener('click', () => openArticle(card.dataset.id));
+      });
+    }
+    
+    function openArticle(id) {
+      const article = articles[id];
+      if (!article) {
+        alert('المقال غير موجود حالياً');
+        return;
+      }
+      document.getElementById('articleContent').innerHTML = `<h1>${article.title}</h1>${article.content}`;
+      document.getElementById('blogList').style.display = 'none';
+      document.getElementById('articleView').classList.add('show');
+      window.scrollTo(0, 0);
+    }
+    
+    function closeArticle() {
+      document.getElementById('blogList').style.display = '';
+      document.getElementById('articleView').classList.remove('show');
+    }
+    
+    // Event Listeners
+    document.getElementById('searchInput').addEventListener('input', renderPosts);
+    document.getElementById('searchBtn').addEventListener('click', renderPosts);
+    document.getElementById('btnBack').addEventListener('click', closeArticle);
+    
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.category;
+        renderPosts();
+      });
+    });
+    
+    // Initial render
+    renderPosts();
+  </script>
+</body>
+</html>
