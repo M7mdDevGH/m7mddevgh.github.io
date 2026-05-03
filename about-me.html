@@ -411,6 +411,15 @@ form.addEventListener('submit', async (e) => {
   // إيقاف اللودر
   btn.classList.remove('loading');
 });
+const websiteInput = document.querySelector('input[name="website"]');
+
+websiteInput.addEventListener('blur', function () {
+  let value = this.value.trim();
+
+  if (value && !value.startsWith('http://') && !value.startsWith('https://')) {
+    this.value = 'https://' + value;
+  }
+});
   </script>
 </body>
           </html>
