@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>تواصل معنا | M7 CyWeb Sy</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Tajawal', sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+    
+    .container { position: relative; z-index: 1; width: 100%; max-width: 550px; margin: 0 auto; padding: 20px 16px 30px; display: flex; flex-direction: column; gap: 24px; }
+    
+    /* Nav */
+    .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(22,27,34,0.9); border: 1px solid #30363d; border-radius: 14px; padding: 10px 16px; backdrop-filter: blur(10px); }
+    .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-brand i { color: #58a6ff; font-size: 24px; }
+    .nav-brand span { font-size: 17px; font-weight: 800; color: white; }
+    .nav-links { display: flex; gap: 12px; }
+    .nav-link { color: #8b949e; text-decoration: none; font-size: 11px; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: #58a6ff; }
+    .nav-link.active { color: #58a6ff; }
+    
+    /* Sections */
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 24px 20px; }
+    
+    .hero { text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); color: #58a6ff; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .hero h1 { font-size: 28px; font-weight: 900; color: white; }
+    .hero .subtitle { font-size: 14px; color: #8b949e; margin-top: 6px; }
+    
+    .section-title { font-size: 20px; font-weight: 800; color: white; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .section-title i { color: #58a6ff; }
+    
+    /* Form */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #c9d1d9; margin-bottom: 6px; }
+    .form-group label .required { color: #f43f5e; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: #0d1117; border: 2px solid #30363d; border-radius: 10px; color: white; font-family: 'Tajawal', sans-serif; font-size: 14px; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #58a6ff; }
+    .form-group select option { background: #161b22; color: white; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #6b7280; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    
+    .btn-submit { width: 100%; padding: 14px; background: #58a6ff; color: #0d1117; border: none; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+    .btn-submit:hover { background: #79b8ff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(88,166,255,0.3); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    /* Trust */
+    .trust-box { background: #0d1117; border: 1px solid #30363d; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+    .trust-box i { color: #22c55e; font-size: 20px; }
+    .trust-box span { font-size: 12px; color: #8b949e; }
+    
+    /* Info */
+    .info-grid { display: flex; flex-direction: column; gap: 10px; }
+    .info-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; }
+    .info-item i { color: #58a6ff; font-size: 18px; width: 22px; text-align: center; }
+    .info-item span { font-size: 13px; color: #c9d1d9; }
+    
+    /* CTA */
+    .cta-box { background: linear-gradient(135deg, #161b22, #1a1f2e); border: 1px solid #30363d; border-radius: 14px; padding: 24px 20px; text-align: center; }
+    .cta-box h3 { font-size: 18px; font-weight: 800; color: white; margin-bottom: 6px; }
+    .cta-box p { font-size: 13px; color: #8b949e; margin-bottom: 16px; }
+    .btn-cta { background: #22c55e; color: #0d1117; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+    .btn-cta:hover { background: #16a34a; transform: translateY(-2px); }
+    
+    /* Toast */
+    .toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 14px 22px; color: white; font-size: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.5s forwards; pointer-events: auto; min-width: 280px; }
+    .toast.success { border-color: #22c55e; } .toast.success i { color: #22c55e; }
+    .toast.error { border-color: #f43f5e; } .toast.error i { color: #f43f5e; }
+    .toast.warning { border-color: #f59e0b; } .toast.warning i { color: #f59e0b; }
+    @keyframes toastIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
+    
+    /* Footer */
+    .footer { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; text-align: center; }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .footer-brand i { color: #58a6ff; font-size: 20px; }
+    .footer-brand span { font-size: 16px; font-weight: 800; color: white; }
+    .footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: #8b949e; text-decoration: none; font-size: 11px; transition: color 0.2s; }
+    .footer-links a:hover { color: #58a6ff; }
+    .footer p { font-size: 10px; color: #8b949e; }
+    
+    @media (max-width: 400px) { .toast { min-width: auto; width: 90%; font-size: 13px; } }
+  </style>
+</head>
+<body>
+  
+  <div class="toast-container" id="toastContainer"></div>
+  
+  <div class="container">
+    
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="about.html" class="nav-link">عن الشركة</a>
+        <a href="services.html" class="nav-link">خدماتنا</a>
+        <a href="contact.html" class="nav-link active">تواصل</a>
+      </div>
+    </nav>
+    
+    <!-- Hero -->
+    <div class="card hero">
+      <div class="hero-badge"> M7 CyWeb Sy</div>
+      <h1>تواصل معنا</h1>
+      <p class="subtitle">ابدأ حماية مشروعك الآن بخطوة بسيطة</p>
+  <p style="text-align:center;font-size:13px;color:#8b949e;margin-bottom:15px;">
+   سيتم الرد خلال 24 ساعة مع تحليل مجاني لموقعك
+</p>
+    </div>
+    
+    <!-- Form -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-paper-plane"></i> أرسل طلبك</div>
+      
+      <form onsubmit="handleSubmit(event)" id="contactForm">
+        <div class="form-group">
+          <label>الاسم <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="اسمك الكامل" required>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="example@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label>نوع الخدمة <span class="required">*</span></label>
+          <select id="service" required>
+            <option value="">اختر الخدمة</option>
+            <option value="pentest">اختبار اختراق</option>
+            <option value="security">حماية سيبرانية</option>
+            <option value="web">تطوير مواقع</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الرسالة <span class="required">*</span></label>
+          <textarea id="message" placeholder="اكتب تفاصيل طلبك..." required></textarea>
+        </div>
+        
+        <div class="trust-box" style="margin-bottom:14px;">
+          <i class="fas fa-shield-alt"></i>
+          <span>بياناتك آمنة 100% ولن يتم مشاركتها مع أي طرف ثالث</span>
+        </div>
+        
+        <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-rocket"></i> ابدأ حماية موقعي الآن</button>
+      </form>
+    </div>
+    
+    <!-- Info -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-address-book"></i> معلومات التواصل</div>
+      <div class="info-grid">
+        <div class="info-item"><i class="fas fa-envelope"></i><span>contact@m7cyweb.com</span></div>
+        <div class="info-item"><i class="fas fa-globe"></i><span>m7cybersy.js.org</span></div>
+        <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>سوريا 🇸🇾</span></div>
+      </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>هل موقعك آمن فعلاً؟</h3>
+      <p>احصل على فحص مجاني الآن واكتشف ثغراتك قبل المخترقين</p>
+      <a href="#" class="btn-cta"><i class="fas fa-shield-alt"></i> احصل على فحص مجاني</a>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></div>
+      <div class="footer-links">
+        <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy</a>
+      </div>
+      <p>© 2026 M7 CyWeb Sy. جميع الحقوق محفوظة. صُمم بكل فخر في سوريا 🇸🇾</p>
+    </div>
+    
+  </div>
+  
+  <script>
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle' };
+      toast.innerHTML = `<i class="fas ${icons[type]}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+    
+    function handleSubmit(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
+      
+      if (!name || !email || !service || !message) {
+        showToast('يرجى تعبئة جميع الحقول المطلوبة', 'warning');
+        return;
+      }
+      
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+      
+      setTimeout(() => {
+        showToast('تم استلام طلبك بنجاح! سنتواصل معك قريباً 🚀', 'success');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-rocket"></i> أرسل الطلب الآن';
+        document.getElementById('contactForm').reset();
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
