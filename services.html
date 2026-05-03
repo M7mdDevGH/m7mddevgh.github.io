@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>خدماتنا | M7 CyWeb Sy</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Tajawal', sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+    
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(88,166,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(88,166,255,0.04) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+    
+    .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .orb-1 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(88,166,255,0.06) 0%, transparent 70%); top: -100px; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(163,113,247,0.05) 0%, transparent 70%); bottom: -80px; left: -80px; }
+    
+    .container { position: relative; z-index: 1; width: 100%; max-width: 550px; margin: 0 auto; padding: 20px 16px 30px; display: flex; flex-direction: column; gap: 24px; }
+    
+    /* Nav */
+    .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(22,27,34,0.9); border: 1px solid #30363d; border-radius: 14px; padding: 10px 16px; backdrop-filter: blur(10px); }
+    .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-brand i { color: #58a6ff; font-size: 24px; }
+    .nav-brand span { font-size: 17px; font-weight: 800; color: white; }
+    .nav-links { display: flex; gap: 12px; }
+    .nav-link { color: #8b949e; text-decoration: none; font-size: 11px; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: #58a6ff; }
+    .nav-link.active { color: #58a6ff; }
+    
+    /* Sections */
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 24px 20px; }
+    
+    .hero { text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); color: #58a6ff; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .hero h1 { font-size: 28px; font-weight: 900; color: white; }
+    .hero .subtitle { font-size: 14px; color: #8b949e; margin-top: 6px; }
+    
+    .section-title { font-size: 20px; font-weight: 800; color: white; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .section-title i { color: #58a6ff; }
+    
+    /* Services Grid */
+    .services-grid { display: flex; flex-direction: column; gap: 12px; }
+    .service-card { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; transition: all 0.3s; display: flex; gap: 14px; align-items: flex-start; }
+    .service-card:hover { border-color: #58a6ff; transform: translateY(-3px); box-shadow: 0 15px 25px -10px rgba(88,166,255,0.2); }
+    .service-icon { width: 48px; height: 48px; background: #1f2937; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #58a6ff; flex-shrink: 0; transition: all 0.3s; }
+    .service-card:hover .service-icon { background: #58a6ff; color: white; }
+    .service-info h3 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .service-info p { font-size: 12px; color: #8b949e; line-height: 1.6; }
+    
+    /* Features */
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .feature-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; text-align: center; transition: all 0.3s; }
+    .feature-card:hover { border-color: #58a6ff; }
+    .feature-card i { font-size: 26px; color: #58a6ff; margin-bottom: 8px; }
+    .feature-card h4 { font-size: 14px; font-weight: 700; color: white; }
+    
+    /* Pricing */
+    .pricing-grid { display: flex; flex-direction: column; gap: 12px; }
+    .pricing-card { background: #0d1117; border: 1px solid #30363d; border-radius: 14px; padding: 20px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+    .pricing-card:hover { border-color: #58a6ff; transform: translateY(-3px); }
+    .pricing-card.featured { border-color: #58a6ff; background: #58a6ff05; }
+    .pricing-card.featured::before { content: 'الأكثر طلباً'; position: absolute; top: 10px; left: -25px; background: #58a6ff; color: white; font-size: 9px; padding: 2px 30px; transform: rotate(-45deg); }
+    .pricing-name { font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .pricing-price { font-size: 32px; font-weight: 900; color: #58a6ff; margin-bottom: 4px; }
+    .pricing-price .period { font-size: 13px; color: #8b949e; }
+    .pricing-features { list-style: none; margin: 16px 0; }
+    .pricing-features li { font-size: 12px; color: #8b949e; margin-bottom: 8px; }
+    .pricing-features li i { color: #22c55e; margin-left: 6px; }
+    .btn-pricing { display: block; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 13px; text-decoration: none; transition: all 0.3s; }
+    .btn-outline { background: transparent; border: 2px solid #30363d; color: #c9d1d9; }
+    .btn-outline:hover { border-color: #58a6ff; color: #58a6ff; }
+    .btn-filled { background: #58a6ff; color: #0d1117; border: none; }
+    .btn-filled:hover { background: #79b8ff; }
+    
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, #161b22, #1a1f2e); border: 1px solid #30363d; border-radius: 16px; padding: 30px 20px; text-align: center; }
+    .cta-section h2 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .cta-section p { font-size: 13px; color: #8b949e; margin-bottom: 20px; }
+    .btn-cta { background: #58a6ff; color: #0d1117; padding: 12px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+    .btn-cta:hover { background: #79b8ff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(88,166,255,0.3); }
+    
+    /* Footer */
+    .footer { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; text-align: center; }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .footer-brand i { color: #58a6ff; font-size: 20px; }
+    .footer-brand span { font-size: 16px; font-weight: 800; color: white; }
+    .footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: #8b949e; text-decoration: none; font-size: 11px; transition: color 0.2s; }
+    .footer-links a:hover { color: #58a6ff; }
+    .footer p { font-size: 10px; color: #8b949e; }
+    
+    @media (min-width: 600px) {
+      .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { flex-direction: row; }
+      .pricing-card { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  
+  <div class="container">
+    
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <i class="fas fa-microchip"></i>
+        <span>M7 CyWeb Sy</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="about.html" class="nav-link">عن الشركة</a>
+        <a href="services.html" class="nav-link active">خدماتنا</a>
+        <a href="contact.html" class="nav-link">تواصل</a>
+      </div>
+    </nav>
+    
+    <!-- Hero -->
+    <div class="card hero">
+      <div class="hero-badge">🛠️ M7 CyWeb Sy</div>
+      <h1>خدماتنا</h1>
+      <p class="subtitle">حلول سيبرانية متقدمة لحماية وتطوير عالمك الرقمي</p>
+    </div>
+    
+    <!-- Services Grid -->
+    <div>
+      <div class="section-title"><i class="fas fa-cubes"></i> ماذا نقدم؟</div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-user-secret"></i></div>
+          <div class="service-info">
+            <h3>اختبار اختراق</h3>
+            <p>نكتشف الثغرات قبل المخترقين ونمنع الاختراقات بنسبة عالية</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
+          <div class="service-info">
+            <h3>الحماية السيبرانية</h3>
+            <p>تأمين الأنظمة والمواقع ضد الهجمات الإلكترونية. حماية شاملة على مدار الساعة.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-globe"></i></div>
+          <div class="service-info">
+            <h3>تطوير مواقع</h3>
+            <p>تصميم وبرمجة مواقع احترافية سريعة وآمنة. مواقع متوافقة مع جميع الأجهزة.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-bolt"></i></div>
+          <div class="service-info">
+            <h3>تحسين الأداء</h3>
+            <p>تسريع المواقع وتحسين تجربة المستخدم. تحسين SEO وسرعة التحميل.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-brain"></i></div>
+          <div class="service-info">
+            <h3>استشارات تقنية</h3>
+            <p>حلول ذكية تناسب مشروعك. استشارات متخصصة في الأمن السيبراني وتطوير الويب.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Features -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-star"></i> لماذا خدماتنا؟</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-shield-alt"></i>
+          <h4>أمان عالي</h4>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-bolt"></i>
+          <h4>سرعة تنفيذ</h4>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-cogs"></i>
+          <h4>حلول مخصصة</h4>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-headset"></i>
+          <h4>دعم مستمر</h4>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#8b949e;margin-bottom:10px;">
+   أكثر من 50 ثغرة تم اكتشافها لعملاء سابقين
+</p>
+    <!-- Pricing -->
+    <div>
+      <div class="section-title"><i class="fas fa-tag"></i> الباقات</div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Basic</div>
+          <div class="pricing-price">$0<span class="period">/شهر</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> فحص موقع واحد</li>
+            <li><i class="fas fa-check"></i> تقرير أساسي</li>
+            <li><i class="fas fa-check"></i> دعم بريد إلكتروني</li>
+          </ul>
+          <a href="contact.html" class="btn-pricing btn-outline">ابدأ مجاناً</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-name">Pro</div>
+          <div class="pricing-price">$0<span class="period">/شهر</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> فحص 5 مواقع</li>
+            <li><i class="fas fa-check"></i> تقرير مفصل</li>
+            <li><i class="fas fa-check"></i> دعم مباشر 24/7</li>
+            <li><i class="fas fa-check"></i> أولوية في التنفيذ</li>
+          </ul>
+          <a href="contact.html" class="btn-pricing btn-filled">ابدأ مجاناً</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-name">Advanced</div>
+          <div class="pricing-price">$0<span class="period">/شهر</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> فحص غير محدود</li>
+            <li><i class="fas fa-check"></i> تقرير متقدم</li>
+            <li><i class="fas fa-check"></i> دعم VIP</li>
+            <li><i class="fas fa-check"></i> استشارات مخصصة</li>
+          </ul>
+          <a href="contact.html" class="btn-pricing btn-outline">ابدأ مجاناً</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>ابدأ بحماية مشروعك الآن</h2>
+      <p>لا تنتظر حتى يتم اختراقك. تواصل معنا اليوم.</p>
+      <a href="contact.html" class="btn-cta"><i class="fas fa-envelope"></i> احصل على خدمة مجانية</a>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">
+        <i class="fas fa-microchip"></i>
+        <span>M7 CyWeb Sy</span>
+      </div>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy</a>
+      </div>
+      <p>© 2026 M7 CyWeb Sy. جميع الحقوق محفوظة. صُمم بكل فخر في سوريا 🇸🇾</p>
+    </div>
+    
+  </div>
+</body>
+</html>
