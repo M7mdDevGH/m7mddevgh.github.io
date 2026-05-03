@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>عن المؤسس | M7 CyWeb Sy</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+  html {
+  scroll-behavior: smooth;
+}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Tajawal', sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+    
+    .container { position: relative; z-index: 1; width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 16px 30px; display: flex; flex-direction: column; gap: 24px; }
+    
+    /* Nav */
+    .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(22,27,34,0.9); border: 1px solid #30363d; border-radius: 14px; padding: 10px 16px; backdrop-filter: blur(10px); }
+    .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-brand i { color: #58a6ff; font-size: 24px; }
+    .nav-brand span { font-size: 17px; font-weight: 800; color: white; }
+    .nav-links { display: flex; gap: 12px; }
+    .nav-link { color: #8b949e; text-decoration: none; font-size: 11px; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: #58a6ff; }
+    .nav-link.active { color: #58a6ff; }
+    
+    /* Sections */
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 24px 20px; }
+    
+    .hero { text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); color: #58a6ff; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .hero h1 { font-size: 28px; font-weight: 900; color: white; }
+    .hero .subtitle { font-size: 14px; color: #8b949e; margin-top: 6px; }
+    
+    .section-title { font-size: 20px; font-weight: 800; color: white; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .section-title i { color: #58a6ff; }
+    
+    /* Avatar */
+    .avatar-wrapper { display: flex; justify-content: center; margin-bottom: 16px; }
+    .avatar { width: 100px; height: 100px; background: linear-gradient(135deg, #58a6ff, #a371f7); border-radius: 28px; display: flex; align-items: center; justify-content: center; font-size: 50px; color: white; box-shadow: 0 15px 30px rgba(88,166,255,0.3); transition: all 0.3s; }
+    .avatar:hover { transform: rotate(-5deg) scale(1.05); }
+    
+    /* Quote */
+    .quote-box { background: linear-gradient(135deg, #0d1117, #161b22); border: 1px solid #30363d; border-right: 4px solid #58a6ff; border-radius: 12px; padding: 20px; text-align: center; font-style: italic; }
+    .quote-box p { font-size: 18px; font-weight: 700; color: white; line-height: 1.6; }
+    .quote-box .author { font-size: 12px; color: #58a6ff; margin-top: 8px; }
+    
+    /* Story */
+    .story-text { font-size: 14px; color: #c9d1d9; line-height: 1.9; }
+    .story-text strong { color: #58a6ff; }
+    
+    /* Skills */
+    .skills-grid { display: flex; flex-direction: column; gap: 12px; }
+    .skill-item { display: flex; align-items: center; gap: 12px; }
+    .skill-icon { width: 40px; height: 40px; background: #1f2937; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #58a6ff; flex-shrink: 0; }
+    .skill-info { flex: 1; }
+    .skill-name { font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; }
+    .skill-bar { height: 6px; background: #1f2937; border-radius: 3px; overflow: hidden; }
+    .skill-fill { height: 100%; background: #58a6ff; border-radius: 3px; transition: width 1s ease; }
+    
+    /* Vision */
+    .vision-box { background: rgba(88,166,255,0.05); border: 1px solid rgba(88,166,255,0.2); border-radius: 12px; padding: 16px 20px; }
+    .vision-box p { font-size: 14px; color: #c9d1d9; line-height: 1.7; }
+    
+    /* Social */
+    .social-grid { display: flex; gap: 10px; justify-content: center; }
+    .social-btn { width: 48px; height: 48px; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #8b949e; text-decoration: none; font-size: 22px; transition: all 0.3s; }
+    .social-btn:hover { background: #58a6ff; color: white; border-color: #58a6ff; transform: translateY(-3px); }
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, #161b22, #1a1f2e); border: 1px solid #30363d; border-radius: 16px; padding: 30px 20px; text-align: center; }
+    .cta-section h2 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .cta-section p { font-size: 13px; color: #8b949e; margin-bottom: 20px; }
+    .btn-cta { background: #58a6ff; color: #0d1117; padding: 12px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+    .btn-cta:hover { background: #79b8ff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(88,166,255,0.3); }
+    /* FORM SPREE*/
+    /* زر */
+#submitBtn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* النص */
+.btn-text {
+  display: inline-block;
+}
+
+/* اللودر */
+.btn-loader {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #022c22;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto;
+}
+
+/* حالة الإرسال */
+#submitBtn.loading .btn-text {
+  display: none;
+}
+
+#submitBtn.loading .btn-loader {
+  display: block;
+}
+
+/* أنيميشن */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* الرسائل */
+.form-message {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.form-success {
+  color: #22c55e;
+}
+
+.form-error {
+  color: #ef4444;
+}
+/* الحقول */
+#contactForm input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  color: #c9d1d9;
+  font-size: 14px;
+  transition: all 0.3s;
+  font-family: tajawal ;
+}
+
+/* عند الكتابة */
+#contactForm input:focus {
+  outline: none;
+  border-color: #58a6ff;
+  box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
+}
+
+/* placeholder */
+#contactForm input::placeholder {
+  color: #8b949e;
+}
+#submitBtn {
+  width: 100%;
+  padding: 12px;
+  background: #58a6ff;
+  border: none;
+  border-radius: 10px;
+  color: #0d1117;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: tajawal;
+}
+
+#submitBtn:hover {
+  background: #79b8ff;
+  transform: translateY(-2px);
+}
+    /* Footer */
+    .footer { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; text-align: center; }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .footer-brand i { color: #58a6ff; font-size: 20px; }
+    .footer-brand span { font-size: 16px; font-weight: 800; color: white; }
+    .footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: #8b949e; text-decoration: none; font-size: 11px; transition: color 0.2s; }
+    .footer-links a:hover { color: #58a6ff; }
+    .footer p { font-size: 10px; color: #8b949e; }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    
+    <nav class="navbar">
+      <a href="/index.html" class="nav-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></a>
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">الرئيسية</a>
+        <a href="/about.html" class="nav-link">عن الشركة</a>
+        <a href="about-me.html" class="nav-link active">المؤسس</a>
+        <a href="/contact.html" class="nav-link">تواصل</a>
+      </div>
+    </nav>
+    
+    <!-- Hero -->
+    <div class="card hero">
+      <div class="hero-badge">👤 M7 CyWeb Sy</div>
+      
+      <div class="avatar-wrapper">
+        <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+      </div>
+      
+      <h1>عن المؤسس</h1>
+      <p class="subtitle">وراء كل نظام قوي... عقل يفكر بشكل مختلف</p>
+    </div>
+    
+    <!-- Founder Info -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-user"></i> المؤسس</div>
+      <p style="text-align:center;font-size:22px;font-weight:900;color:white;margin-bottom:8px;">M7MD</p>
+      <p style="text-align:center;font-size:14px;color:#8b949e;">مؤسس شركة M7 CyWeb Sy، مهتم بالأمن السيبراني وتطوير الويب، يسعى لبناء أنظمة قوية وآمنة.</p>
+    </div>
+    
+    <!-- Story -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-book-open"></i> القصة</div>
+      <div class="story-text">
+        <p>بدأ <strong>M7MD</strong> رحلته في عالم التقنية منذ سن مبكرة جداً - <strong>عمر 8 سنوات</strong> - عندما شاهد فيديو على يوتيوب عن تعلم لغة بايثون. من هناك، تحول الفضول إلى شغف حقيقي بالبرمجة والأمن السيبراني.</p>
+        <p style="margin-top:12px;">في عمر <strong>10 سنوات</strong>، تحول هذا الشغف إلى مشروع حقيقي: تأسيس <strong>M7 CyWeb Sy</strong>، شركة متخصصة في الأمن السيبراني وتطوير الويب. بمساعدة الذكاء الاصطناعي <strong>DeepSeek AI</strong>، تم بناء منصة متكاملة تضم أكثر من 40 صفحة وأداة تفاعلية.</p>
+        <p style="margin-top:12px;">اليوم، يكرس <strong>M7MD</strong> وقته لتطوير أدوات أمنية ومساعدة الأفراد والشركات على حماية أنفسهم في الفضاء الرقمي.</p>
+      </div>
+    </div>
+    
+    <!-- Skills -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-code"></i> المهارات</div>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-icon"><i class="fas fa-shield-virus"></i></div>
+          <div class="skill-info">
+            <div class="skill-name">الأمن السيبراني</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon"><i class="fas fa-user-secret"></i></div>
+          <div class="skill-info">
+            <div class="skill-name">اختبار الاختراق</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon"><i class="fas fa-globe"></i></div>
+          <div class="skill-info">
+            <div class="skill-name">تطوير الويب</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon"><i class="fas fa-bug"></i></div>
+          <div class="skill-info">
+            <div class="skill-name">تحليل الثغرات</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+  <div class="section-title">
+    <i class="fas fa-star"></i> لماذا تختارني؟
+  </div>
+  
+  <p style="text-align:center;font-size:14px;line-height:1.8;">
+     أركز على الأمان الحقيقي وليس فقط الشكل<br><br>أكتشف الثغرات قبل أن يستغلها أي مهاجم<br><br>
+     أفكر بعقلية المخترق لحماية موقعك بشكل أفضل
+  </p>
+</div>
+<div class="card">
+  <div class="section-title">
+    <i class="fas fa-shield-alt"></i> نتائج حقيقية
+  </div>
+  
+  <p style="text-align:center;font-size:14px;line-height:1.8;">
+     تم اكتشاف ثغرة XSS في موقع تجريبي<br><br>
+     تم إصلاح الثغرة بالكامل وتأمين النظام<br><br>
+     تحسين مستوى الأمان بنسبة 79%<br><br>
+     استخدام تقنيات اختبار اختراق حقيقية
+  </p>
+</div>   
+<div class="card">
+  <div class="section-title">
+    <i class="fas fa-bolt"></i> نشاط أمني مباشر
+  </div>
+  
+  <p style="text-align:center;font-size:14px;line-height:1.8;">
+    تم رصد <span id="threatCount">12</span> محاولة خلال هذا الأسبوع<br><br>
+    آخر فحص منذ <span id="lastScan">3</span> ساعات<br><br>
+    النظام يعمل بكفاءة عالية
+  </p>
+</div>
+    <!-- Vision -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-eye"></i> الرؤية</div>
+      <div class="vision-box">
+        <p>هدفي بناء بيئة رقمية أكثر أماناً، ومساعدة الأفراد والشركات على حماية أنفسهم من التهديدات. أؤمن بأن الأمن السيبراني ليس رفاهية، بل حق أساسي للجميع.</p>
+      </div>
+    </div>
+    
+    <!-- Quote -->
+    <div class="quote-box">
+      <p>"نحن لا نحمي فقط... نحن نسيطر"</p>
+      <div class="author">— M7MD</div>
+    </div>
+    
+    <!-- Social -->
+    <div class="card">
+      <div class="section-title"><i class="fas fa-share-alt"></i> روابط</div>
+      <div class="social-grid">
+        <a href="https://github.com/m7mddevgh" class="social-btn" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>هل تريد العمل معي؟</h2>
+      <p>هل موقعك آمن؟ جرب فحص مجاني الآن قبل فوات الأوان</p>
+      <a href="#contactForm" class="btn-cta"><i class="fas fa-envelope"></i> احصل على فحص أمني مجاني</a>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#8b949e;">
+لن يستغرق أكثر من 10 ثواني
+</p>
+    <form id="contactForm" action="https://formspree.io/f/your-id" method="POST">
+  
+  <input type="text" name="name" placeholder="اسمك" required>
+  
+  <input type="url" name="website" placeholder="رابط موقعك" required>
+  
+  <button type="submit" id="submitBtn">
+    <span class="btn-text">طلب الفحص الآن</span>
+    <span class="btn-loader"></span>
+  </button>
+  
+  <div id="formMessage" class="form-message"></div>
+  <p style="text-align:center;font-size:12px;color:#8b949e;">
+لن يتم مشاركة بياناتك مع أي جهة
+</p>
+</form>
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand"><i class="fas fa-microchip"></i><span>M7 CyWeb Sy</span></div>
+      <div class="footer-links">
+        <a href="/about.html">About</a><a href="/services.html">Services</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a>
+      </div>
+      <p>© 2026 M7 CyWeb Sy. جميع الحقوق محفوظة. صُمم بكل فخر في سوريا 🇸🇾</p>
+    </div>
+    
+  </div>
+  
+  <script>
+    // Animate skill bars on scroll (simple version)
+    document.querySelectorAll('.skill-fill').forEach(bar => {
+      const targetWidth = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = targetWidth; }, 300);
+    });
+    
+  const threatEl = document.getElementById("threatCount");
+  const scanEl = document.getElementById("lastScan");
+
+  function randomizeStats() {
+    const threats = Math.floor(Math.random() * 20) + 5;
+    const hours = Math.floor(Math.random() * 6) + 1;
+
+    threatEl.textContent = threats;
+    scanEl.textContent = hours;
+  }
+
+  randomizeStats();
+const form = document.getElementById('contactForm');
+const btn = document.getElementById('submitBtn');
+const msg = document.getElementById('formMessage');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // تشغيل اللودر
+  btn.classList.add('loading');
+  msg.textContent = '';
+  msg.className = 'form-message';
+
+  const formData = new FormData(form);
+
+  try {
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (res.ok) {
+      msg.textContent = "تم إرسال الطلب بنجاح";
+      msg.classList.add('form-success');
+      form.reset();
+    } else {
+      msg.textContent = "حدث خطأ، حاول مرة أخرى";
+      msg.classList.add('form-error');
+    }
+
+  } catch (err) {
+    msg.textContent = "فشل الاتصال بالخادم";
+    msg.classList.add('form-error');
+  }
+
+  // إيقاف اللودر
+  btn.classList.remove('loading');
+});
+  </script>
+</body>
+          </html>
