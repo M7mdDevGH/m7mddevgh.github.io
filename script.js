@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
       
-      const dangerous = /<script|javascript:|onerror=|onload=|onclick=/i;
-      
+      const dangerous = /(<\s*\/?\s*(script|iframe|object|embed|link|style|svg|math|base|form|img|video|audio)|on\w+\s*=|javascript\s*:|data\s*:|vbscript\s*:|expression\s*\(|url\s*\(|alert\s*\(|prompt\s*\(|confirm\s*\(|eval\s*\(|set(timeout|interval)\s*\(|Function\s*\(|document\.(cookie|domain|write)|window\.location|&#|%3c|%3e|\\x|\\u)/i;
       if (dangerous.test(input)) {
         result.className += ' danger';
         result.textContent = '🚫 تم اكتشاف كود خبيث! تم تطهير النص: ' + sanitize(input);
